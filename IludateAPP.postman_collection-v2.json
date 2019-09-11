@@ -1,0 +1,1147 @@
+{
+	"info": {
+		"_postman_id": "c6141d20-2418-4317-8b77-386692143d27",
+		"name": "IludateAPP",
+		"description": "This is collection of iludate app. ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "SIGNUP API",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "ming@outlook.com",
+									"description": "register email",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "asdfASDF!@#$",
+									"description": "register password",
+									"type": "text"
+								},
+								{
+									"key": "registration_ip_address",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "imei_registration",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.5.205:5101/api/v1/auth/signup",
+						"description": "This is signup API for registration."
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN API",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "b@b.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Arsenal1!",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{base_url}}/api/v1/auth/email"
+					},
+					"response": []
+				},
+				{
+					"name": "Facebook Auth",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "accessToken",
+									"value": "12312",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.5.205:5101/api/v1/auth/facebook"
+					},
+					"response": []
+				},
+				{
+					"name": "Google Auth",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "code",
+									"value": "1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.5.205:5101/api/v1/auth/google"
+					},
+					"response": []
+				},
+				{
+					"name": "Token API(Not clear)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.5.205:5101/api/v1/auth/token/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users API",
+			"item": [
+				{
+					"name": "Get User information",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token: {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "{{base_url}}/api/v1/users/3",
+						"description": "Get the matched user information. \nYou can't get not matched users via this api."
+					},
+					"response": []
+				},
+				{
+					"name": "My Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token: {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{base_url}}/api/v1/users/me",
+						"description": "This is getting my profile via token. "
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Plate",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "http://192.168.5.205:5101/api/v1/users/me/plate",
+						"description": "This is getting my profile via token. "
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chats",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "http://192.168.5.205:5101/api/v1/users/me/chats"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recents Searchs,Matches",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "http://192.168.5.205:5101/api/v1/users/me/recents"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Home screen Overview",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "http://192.168.5.205:5101/api/v1/users/me/overview"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Invite Code",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token: {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "{{base_url}}/api/v1/users/me/invite",
+						"description": "This is getting my profile via token. "
+					},
+					"response": []
+				},
+				{
+					"name": "Get Active Users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "{{base_url}}/api/v1/users/me/active",
+						"description": "Get Active Users"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Privacy Modes per Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token: {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "{{base_url}}/api/v1/users/3/privacy-modes",
+						"description": "Get User Privacy Modes"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Logged in User Privacy Modes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token: {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "{{base_url}}/api/v1/users/me/privacy-modes",
+						"description": "Get Logged in User Privacy Modes"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Logged in User Devices",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token: {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "{{base_url}}/api/v1/users/me/devices",
+						"description": "Get Logged in User Devices"
+					},
+					"response": []
+				},
+				{
+					"name": "Redeem invite code",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "code",
+									"value": "BB3819",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.5.205:5101/api/v1/users/me/invite"
+					},
+					"response": []
+				},
+				{
+					"name": "Put push notification Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "1234567890",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.5.205:5101/api/v1/users/me/devices"
+					},
+					"response": []
+				},
+				{
+					"name": "Admin send push notification to user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "notification",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.5.205:5101/api/v1/users/3/push"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User ",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "token: {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\" : \"ming\",\n\t\"lastName\" : \"ming\",\n\t\"gender\" : \"male\",\n\t\"birthday\" : \"1990-08-01\",\n\t\"preference\" : {\n\t\t\"genders\" : [\"female\"],\n\t\t\"age\" : [18,36]\n\t},\n\t\"car_brand_id\" : 1,\n\t\"car_color_id\" : 1,\n\t\"res_current_city\" : \"Delhi\",\n\t\"res_current_country_id\" : \"AU\",\n\t\"res_from_city\" : \"Delhi\",\n\t\"res_from_country_id\" : \"AU\",\n\t\"hobbies\" : \"Chess, Cricket\",\n\t\"job\" : \"Dev\",\n\t\"register\" : 1\n}"
+						},
+						"url": "{{base_url}}/api/v1/users/me"
+					},
+					"response": []
+				},
+				{
+					"name": "Update photo",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "token: {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo1",
+									"type": "file",
+									"src": "/C:/Users/ShirishM/Downloads/images.png"
+								},
+								{
+									"key": "photo2",
+									"type": "file",
+									"src": "/C:/Users/ShirishM/Downloads/user.png"
+								},
+								{
+									"key": "photo3",
+									"type": "file",
+									"src": "/C:/Users/ShirishM/Downloads/ghost.png"
+								}
+							]
+						},
+						"url": "{{base_url}}/api/v1/users/me/photo"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Privacy Modes",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "token: {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"standard_privacy\" : 1,\r\n\t\"instant_privacy\" : 0,\r\n\t\"data_request_privacy\" : 1\r\n}"
+						},
+						"url": "{{base_url}}/api/v1/users/me/privacy-modes",
+						"description": "Update User Privacy Modes"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Active Status to TRUE",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "token: {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{base_url}}/api/v1/users/me/active",
+						"description": "Update User Active Status to TRUE"
+					},
+					"response": []
+				},
+				{
+					"name": "Put My Plate Number",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "plate",
+									"value": "3422",
+									"type": "text"
+								},
+								{
+									"key": "temporary",
+									"value": "false",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.5.205:5101/api/v1/users/me/plate"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Me",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6ImEgYSIsImZpcnN0TmFtZSI6ImEiLCJsYXN0TmFtZSI6ImEiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8xLTE1NjYwMTkyNTEwMTEuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk5NS0wOC0xNyIsImFnZSI6MjQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTIsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MSwidXNlcklkIjoxLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkFBMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjE6MTIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkFBMzk1OSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.BXLXViGURU1GHIDAV9JfPwbXWwQdKvWlIeBGfyynmgc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "http://192.168.5.205:5101/api/v1/users/me"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove My Plate",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "http://192.168.5.205:5101/api/v1/users/me/plate"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Matches API",
+			"item": [
+				{
+					"name": "Send Request for matches",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "matchedUserId",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "plateId",
+									"value": "1233",
+									"type": "text"
+								},
+								{
+									"key": "searchId",
+									"value": "23",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "hi. Nice to meet you. ",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.5.205:5101/api/v1/matches/sendrequest",
+						"description": "This is getting my profile via token. "
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pending Requests",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "http://192.168.5.205:5101/api/v1/matches/pending_request",
+						"description": "This is getting my profile via token. "
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Matches",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "http://192.168.5.205:5101/api/v1/matches/view_all/1",
+						"description": "id = { 0 = notfound, 1= requested,2 = all searches,3 = platch with you}"
+					},
+					"response": []
+				},
+				{
+					"name": "Change Match Status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.5.205:5101/api/v1/matches/change_match_status/3",
+						"description": "This is getting my profile via token. "
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Plates API",
+			"item": [
+				{
+					"name": "Search Plate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "plate",
+									"value": "123",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.5.205:5101/api/v1/plates/search"
+					},
+					"response": []
+				},
+				{
+					"name": "Set Expire Plate",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "expire",
+									"value": "123",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.5.205:5101/api/v1/plates/update_plate/3"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat API",
+			"item": [
+				{
+					"name": "View messages for Matched User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "http://192.168.5.205:5101/api/v1/chat/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pending Request",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "http://192.168.5.205:5101/api/v1/chat/pending_request"
+					},
+					"response": []
+				},
+				{
+					"name": "Send message to Matched User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "message",
+									"value": "It is me",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.5.205:5101/api/v1/chat/3"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Report API",
+			"item": [
+				{
+					"name": "Report User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibmFtZSI6ImIgYiIsImZpcnN0TmFtZSI6ImIiLCJsYXN0TmFtZSI6ImIiLCJwaG90byI6InVwbG9hZHMvcHJvZmlsZS8yLTE1NjYwMTkzMDU3MDIuanBnIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk4NS0wOC0xNyIsImFnZSI6MzQsImxpbWl0ZWQiOmZhbHNlLCJjb2lucyI6OTYsInByZWZlcmVuY2UiOiJ7XCJhZ2VcIjpbMTgsNzVdLFwiZ2VuZGVyc1wiOltcIm1hbGVcIixcImZlbWFsZVwiXX0iLCJwbGF0ZSI6eyJpZCI6MiwidXNlcklkIjoyLCJjb3VudHJ5IjoiR0IiLCJ2YWx1ZSI6IkJCMTAxIiwidGVtcG9yYXJ5IjpmYWxzZSwiZXhwaXJ5IjpudWxsLCJpbmFjdGl2ZSI6bnVsbCwiY3JlYXRlZCI6IjIwMTktMDgtMTdUMDc6MjI6MDIuMDAwKzA4OjAwIn0sInZlcmlmaWVkIjpudWxsLCJpbnZpdGUiOnsiaW52aXRlQ29kZSI6IkJCMzgxOSIsInJlZGVlbWVkQ29kZSI6bnVsbCwiaW52aXRlZEJ5IjpudWxsfX0.uKHEiP-cA_phd9rtSW_lo6gJD0Km7FplRB2HBCm_zgc"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "concern",
+									"value": "It is me",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.5.205:5101/api/v1/reports"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cars API",
+			"item": [
+				{
+					"name": "Get Cars Brand",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token: {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{base_url}}/api/v1/cars/brands"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cars Color",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token: {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{base_url}}/api/v1/cars/colors"
+					},
+					"response": []
+				}
+			],
+			"description": "Cars API"
+		}
+	]
+}
