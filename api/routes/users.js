@@ -149,8 +149,7 @@ router.patch('/me', async (req, res, next) => {
 
 		var mailOptions = {
 			from: 'system@iludate.com', // Sender address
-			to: 'shirish.m@wingstechsolutions.com',         // List of recipients
-			// to: req.user.email,         // List of recipients
+			to: req.user.email,         // List of recipients
 			subject: 'Verify account',
 			html: '<h3>Hello. Thanks for registration.</h3><p>Please confirm your account by clicking this button.</p><a href="' + baseUrl + 'api/v1/auth/emailconfirmation/token/' + encryptedString + '" style="background-color: #008CBA;border: none;padding:5px;color: white;text-align: center; text-decoration: none;display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;">Confirm</a><p>If the button is not working, please copy and paste this link into browser.<a href="' + baseUrl + 'api/v1/auth/emailconfirmation/token/' + encryptedString + '">' + baseUrl + 'api/v1/auth/emailconfirmation/token/' + encryptedString + '</a></p>',
 		}

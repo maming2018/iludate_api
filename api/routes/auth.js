@@ -96,6 +96,12 @@ router.post('/email', authValidator.email, async (req, res, next) => {
 		await Coin.query().insertAndFetch(data)
 	}
 
+	const updateData = await UserMe.query().where({ id: user.id }).update({ last_imei: last_imei, last_ip_address: last_ip_address })
+
+	if (!updateData) {
+		throw new APIError(503, 'Something went wrong on updating data!')
+	}
+
 	return res.json(authResponse(user))
 })
 
