@@ -118,62 +118,7 @@ router.patch('/me', async (req, res, next) => {
 		req.user = await req.user.$query().updateAndFetch(data)
 	}
 
-	if (req.body.register == 1) {
-		console.log("SEND EMAIL AS REG IS 1")
-		var smtpTransport = nodemailer.createTransport({
-			host: "smtp.iludate.com",
-			port: 587,
-			secureConnection: false, // TLS requires secureConnection to be false
-			auth: {
-				user: "system@iludate.com",
-				pass: "FvcyWi@3ia8pFvcyWi@3ia8p"
-			},
-			tls: {
-				// do not fail on invalid certs
-				rejectUnauthorized: false
-			}
-		});
 
-		var userId = req.user.id;
-		// console.log("userId");
-		// console.log(userId);
-
-		// var baseUrl = process.env.BASE_URL + ':' + process.env.PORT;
-		var baseUrl = process.env.BASE_URL;
-		const encryptedString = cryptr.encrypt(userId);
-		// console.log("encryptedString");
-		// console.log(encryptedString);
-
-		// var host = process.env.BASE_URL;
-		// var port = process.env.PORT;
-
-		var mailOptions = {
-			from: 'system@iludate.com', // Sender address
-			to: req.user.email,         // List of recipients
-			subject: 'Verify account',
-			html: '<h3>Hello. Thanks for registration.</h3><p>Please confirm your account by clicking this button.</p><a href="' + baseUrl + 'api/v1/auth/emailconfirmation/token/' + encryptedString + '" style="background-color: #008CBA;border: none;padding:5px;color: white;text-align: center; text-decoration: none;display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;">Confirm</a><p>If the button is not working, please copy and paste this link into browser.<a href="' + baseUrl + 'api/v1/auth/emailconfirmation/token/' + encryptedString + '">' + baseUrl + 'api/v1/auth/emailconfirmation/token/' + encryptedString + '</a></p>',
-		}
-
-		// smtpTransport.verify(function (error, success) {
-		// 	if (error) {
-		// 		console.log(error);
-		// 	} else {
-		// 		console.log("Server is ready to take our messages");
-		// 	}
-		// });
-
-		// console.log(mailOptions);
-		smtpTransport.sendMail(mailOptions, function (err, info) {
-			if (err) {
-				console.log(err)
-			} else {
-				console.log(info);
-			}
-		});
-
-	} else {
-		console.log("DONT SEND EMAIL AS REG IS 0")
-	}
 	// Invite codes
 
 	const { firstName, invite } = req.user
