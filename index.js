@@ -37,6 +37,8 @@ app.disable('etag')
 app.use(appPrefix, router)
 app.use(Sentry.Handlers.requestHandler())
 
+app.use('/uploads', express.static('uploads'))
+
 router.use(morgan('dev'))
 router.use(cors())
 router.use(bodyParser.urlencoded({ extended: false }))

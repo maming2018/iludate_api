@@ -84,15 +84,7 @@ const handlePhoto = async (req, res, next) => {
 	// console.log(req.user.other_photos);
 
 	return upload.fields([{
-		name: 'photo1', maxCount: 1
-	}, {
-		name: 'photo2', maxCount: 1
-	}, {
-		name: 'photo3', maxCount: 1
-	}, {
-		name: 'photo4', maxCount: 1
-	}, {
-		name: 'photo5', maxCount: 1
+		name: 'photo', maxCount: 1
 	}])(req, res, (err) => {
 		try {
 

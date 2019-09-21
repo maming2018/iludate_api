@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt-nodejs')
 const moment = require('moment')
 const express = require('express')
 const router = express.Router()
+const nodemailer = require('nodemailer');
 const Cryptr = require('cryptr');
 
 const authValidator = require('../validation/authentication')
@@ -49,6 +50,41 @@ const createAccount = async (req, data) => {
 	if (giftCoinAmount && giftCoinAmount > 0) {
 		await Coin.query().insertAndFetch({ userId: savedUser.id, type: 'signup-gift', value: giftCoinAmount })
 	}
+
+	console.log("SEND EMAIL AS REG IS 1")
+	var smtpTransport = nodemailer.createTransport({
+		host: "smtp.iludate.com",
+		port: 587,
+		secureConnection: false, // TLS requires secureConnection to be false
+		auth: {
+			user: "system@iludate.com",
+			pass: "FvcyWi@3ia8pFvcyWi@3ia8p"
+		},
+		tls: {
+			// do not fail on invalid certs
+			rejectUnauthorized: false
+		}
+	});
+
+	var userId = savedUser.id;
+
+	var baseUrl = process.env.BASE_URL;
+	const encryptedString = cryptr.encrypt(userId);
+
+	var mailOptions = {
+		from: 'system@iludate.com', // Sender address
+		to: data.email,         // List of recipients
+		subject: 'Verify account',
+		html: '<h3>Hello. Thanks for registration.</h3><p>Please confirm your account by clicking this button.</p><a href="' + baseUrl + 'api/v1/auth/emailconfirmation/token/' + encryptedString + '" style="background-color: #008CBA;border: none;padding:5px;color: white;text-align: center; text-decoration: none;display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;">Confirm</a><p>If the button is not working, please copy and paste this link into browser.<a href="' + baseUrl + 'api/v1/auth/emailconfirmation/token/' + encryptedString + '">' + baseUrl + 'api/v1/auth/emailconfirmation/token/' + encryptedString + '</a></p>',
+	}
+
+	smtpTransport.sendMail(mailOptions, function (err, info) {
+		if (err) {
+			console.log(err)
+		} else {
+			console.log(info);
+		}
+	});
 
 	return authResponse(savedUser, { signup: true, gift: true })
 }
@@ -108,9 +144,9 @@ router.post('/email', authValidator.email, async (req, res, next) => {
 // TODO: Validation, sanitation
 router.post('/signup', authValidator.email, async (req, res, next) => {
 
-
 	const { User } = req.models
 	const { email, password, registration_ip_address, imei_registration } = req.body
+
 
 	const existingUser = await User.query().where({ email }).first().count('* as count')
 	const alreadyRegistered = !!existingUser.count
