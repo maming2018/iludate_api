@@ -4,7 +4,11 @@ const moment = require('moment')
 const knex = require('../config/database')
 const _ = require('lodash')
 const nodemailer = require('nodemailer');
+const fs = require('fs');
 const Cryptr = require('cryptr');
+const Jimp = require('jimp');
+
+const { raw } = require('objection');
 
 const { requireAdmin } = require('../middleware/protect')
 const { checkRecipient, requireCompleteProfile, requireMatch } = require('../middleware/users')
@@ -69,12 +73,12 @@ router.get('/me', requireCompleteProfile, async (req, res, next) => {
 })
 
 // Patch my user
-
+// ALTER TABLE `users` ADD `introduce` VARCHAR(255) NOT NULL AFTER `other_photos`;
 router.patch('/me', async (req, res, next) => {
 
 	const { Invite } = req.models
 
-	const data = _.pick(req.body, ['firstName', 'lastName', 'gender', 'birthday', 'preference', 'car_brand_id', 'car_color_id', 'res_current_city', 'res_current_country_id', 'res_from_city', 'res_from_country_id', 'hobbies', 'job'])
+	const data = _.pick(req.body, ['firstName', 'lastName', 'gender', 'birthday', 'preference', 'car_brand_id', 'car_color_id', 'res_current_city', 'res_current_country_id', 'res_from_city', 'res_from_country_id', 'hobbies', 'job', 'introduce'])
 
 	// Birthday check
 
@@ -119,6 +123,7 @@ router.patch('/me', async (req, res, next) => {
 	}
 
 
+
 	// Invite codes
 
 	const { firstName, invite } = req.user
@@ -138,30 +143,64 @@ router.patch('/me', async (req, res, next) => {
 router.patch('/me/photo', photoController.handlePhoto, async (req, res, next) => {
 
 	console.log('received photo');
-	// console.log(req.files);
+	console.log(req.files)
+
+	// console.log("req.user.other_photos----------")
+	// console.log("-" + req.user.other_photos + "-");
+	// console.log("req.user.other_photos----------")
+
 	var error = true;
 	var avatar = "";
-	var other_photos = JSON.parse(req.user.other_photos);
+	if (req.user.other_photos === "") {
+		var other_photos = [];
+	} else {
+		var other_photos = JSON.parse(req.user.other_photos);
+	}
 	for (var key in req.files) {
 		// console.log("KEY:", key, req.files[key][0].path);
-	/*	if (req.files[key][0].path) {
-			error = false;
-			if (req.files[key][0].fieldname == "photo1") {
-				avatar = req.files[key][0].path
-			} else {
-				other_photos.push(req.files[key][0].path)
-			}
-		}*/
-		if(req.body.index == "1"){
+		/*	if (req.files[key][0].path) {
+				error = false;
+				if (req.files[key][0].fieldname == "photo1") {
+					avatar = req.files[key][0].path
+				} else {
+					other_photos.push(req.files[key][0].path)
+				}
+			}*/
+
+		var image_path = req.files["photo"][0].path;
+		console.log(image_path)
+
+		// sharp(image_path).resize(300, 200).toBuffer(function (err, buffer) {
+		// 	fs.writeFile(image_path, buffer, function (e) {
+		// 		console.log("Image resized succeed")
+		// 	});
+		// });
+
+		Jimp.read(image_path, (err, image) => {
+			if (err) throw err;
+
+			var w = image.bitmap.width; //  width of the image
+			var h = image.bitmap.height; // height of the image
+			console.log("width:", image.bitmap.width)
+			console.log("height:", image.bitmap.height)
+
+			newResize = resize_image(w, h)
+
+			image
+				.resize(newResize.width, newResize.height) // resize
+				.write(image_path); // save
+		});
+
+		if (req.body.index == "1") {
 			avatar = req.files["photo"][0].path;
 			error = false;
 		}
-		else{
-			var obj = {index:req.body.index,url:req.files["photo"][0].path};
+		else {
+			var obj = { index: req.body.index, url: req.files["photo"][0].path };
 
-			for(var i = 0 ; i < other_photos.length ; i ++) {
-				if(other_photos[i].index == req.body.index){
-					other_photos.splice(i,1);
+			for (var i = 0; i < other_photos.length; i++) {
+				if (other_photos[i].index == req.body.index) {
+					other_photos.splice(i, 1);
 				}
 			}
 			other_photos.push(obj);
@@ -184,13 +223,13 @@ router.patch('/me/photo', photoController.handlePhoto, async (req, res, next) =>
 	var updateData = {};
 	var otherFiles = JSON.stringify(other_photos);
 	if (avatar != "") {
-		updateData = {photo: avatar, photoUpdate: knex.fn.now()};
+		updateData = { photo: avatar, photoUpdate: knex.fn.now() };
 
 	} else {
-		if(other_photos.length > 0) {
-			updateData = {other_photos: JSON.stringify(other_photos)};
+		if (other_photos.length > 0) {
+			updateData = { other_photos: JSON.stringify(other_photos) };
 		}
-		else{
+		else {
 			updateData = {};
 		}
 	}
@@ -203,6 +242,34 @@ router.patch('/me/photo', photoController.handlePhoto, async (req, res, next) =>
 
 	return res.json({ avatar: req.user.photo, other_photos: obj })
 })
+
+
+const resize_image = (width, height) => {
+	var maxWidth = 800;           // Max width for the image
+	var maxHeight = 600;          // Max height for the image
+	var ratio = 0;                // Used for aspect ratio
+
+	// If the current width is larger than the max, scale height
+	// to ratio of max width to current and then set width to max.
+	if (width > maxWidth) {
+		// console.log("Shrinking width (and scaling height)")
+		ratio = maxWidth / width;
+		height = height * ratio;
+		width = maxWidth;
+		// console.log("new dimensions: " + width + "x" + height);
+	}
+
+	// If the current height is larger than the max, scale width
+	// to ratio of max height to current and then set height to max.
+	if (height > maxHeight) {
+		// console.log("Shrinking height (and scaling width)")
+		ratio = maxHeight / height;
+		width = width * ratio;
+		height = maxHeight;
+		// console.log("new dimensions: " + width + "x" + height);
+	}
+	return { width: width, height: height }
+}
 
 // TODO: Delete my user
 
@@ -302,7 +369,6 @@ router.get('/me/privacy-modes', async (req, res, next) => {
 })
 
 // Update user privacy modes
-
 router.patch('/me/privacy-modes', async (req, res, next) => {
 
 	const myUser = req.user
@@ -343,8 +409,51 @@ router.patch('/me/privacy-modes', async (req, res, next) => {
 	return res.json(response)
 })
 
-// Redeem invite code
+router.get('/near-by-users', async (req, res, next) => {
+	// console.log("NEAR BY USERS");
 
+	const { User } = req.models
+	const data = _.pick(req.body, ['latitude', 'longitude'])
+	// console.log("data")
+	// console.log(data)
+
+	const distanceInMilesSql = `( 3959 * acos( cos( radians(${data.latitude}) ) 
+          * cos( radians( location_latitude ) ) 
+          * cos( radians( location_longitude ) - radians(${data.longitude}) ) 
+          + sin( radians(${data.latitude}) ) 
+          * sin( radians( location_latitude ) ) ) ) AS distance 
+				`;
+
+	const users = await User.query().select(['*', raw(distanceInMilesSql)]).whereNotNull('location_latitude').whereNotNull('location_longitude').having('distance', '<', 10)
+	// console.log(users);
+
+	return res.json(users)
+})
+
+// Update user Location
+//ALTER TABLE `users` ADD `location_latitude` DOUBLE NULL AFTER `location`, ADD `location_longitude` DOUBLE NULL AFTER `location_latitude`;
+
+router.patch('/me/location', async (req, res, next) => {
+
+	const myUser = req.user
+	const body = _.pick(req.body, ['latitude', 'longitude'])
+
+	const data = {
+		location_latitude: body.latitude,
+		location_longitude: body.longitude
+	}
+
+	const updateData = await myUser.$query().update(data)
+
+	if (!updateData) {
+		throw new APIError(503, 'Something went wrong on updating data!')
+	}
+
+	return res.json(data)
+})
+
+
+// Redeem invite code
 router.post('/me/invite', async (req, res, next) => {
 
 	const { Invite, Coin } = req.models
