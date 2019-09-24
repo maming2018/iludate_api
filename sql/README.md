@@ -1,5 +1,5 @@
 
-#SQL QUERIES
+## SQL QUERIES
 
 
 1. ALTER TABLE `users` ADD `introduce` VARCHAR(255) NOT NULL AFTER `other_photos`;
