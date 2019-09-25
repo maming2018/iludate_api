@@ -259,10 +259,9 @@ router.post('/search_normal', validator.plate, async (req, res, next) => {
             // console.log(matchingData)
             // console.log("===================")
 
-            if ((matchingData && matchingData.matcherId == element.user.id) || (matchingData && matchingData.matchedId == element.user.id)) {
+            if (matchingData && element.user && ((matchingData.matcherId == element.user.id) || (matchingData.matchedId == element.user.id))) {
                 element.status = matchingData.status;
-            }
-            else {
+            } else {
                 element.status = "-1";
             }
 
@@ -282,7 +281,63 @@ router.post('/search_extra', async (req, res, next) => {
     const { Match, Plate } = req.models
     const myUser = req.user
 
-    const data = _.pick(req.body, ['plate_part1', 'country_iso_code', 'car_brand_id', 'car_color_id'])
+    // * Check matching plate
+    let matchedPlate = await Plate.query().where(
+        // raw("REPLACE(`value`, '-', '')"), req.body.plate_part1
+        raw("REPLACE(`value`, '-', '')"), 'like', req.body.plate_part1 + "%"
+    )
+        .where('inactive', null)
+        .eager('user').orderBy('id', 'desc') // country: req.user.country
+
+    // console.log(chalk.blue("matchedPlate"))
+    // console.log(matchedPlate)
+    let outputResponse = [];
+    if (matchedPlate) {
+        matchedPlate.forEach(element => {
+            // console.log("element");
+            // console.log(element.id);
+            // console.log(myUser.id);
+
+            let matchingData = Match.query().select('status')
+                .where('plateId', element.id)
+                .where(
+                    query => query.where('matcherId', myUser.id)
+                        .orWhere('matchedId', myUser.id)
+                ).first().orderBy('id', 'desc')
+            // .where(
+            //     query => query.where('plateId', element.id)
+            //         .where('matcherId', myUser.id)
+            //         .orWhere('matchedId', myUser.id)
+            // ).first().orderBy('id', 'desc')
+
+            // console.log("===================")
+            // console.log(matchingData.status)
+            // console.log(matchingData)
+            // console.log("===================")
+
+            if (matchingData && element.user && ((matchingData.matcherId == element.user.id) || (matchingData.matchedId == element.user.id))) {
+                element.status = matchingData.status;
+            } else {
+                element.status = "-1";
+            }
+
+            outputResponse.push(element);
+        });
+    }
+
+    // console.log(chalk.blue("outputResponse"))
+    // console.log(outputResponse)
+    res.json(outputResponse)
+})
+
+router.post('/search_extra_dump', async (req, res, next) => {
+
+    getTimeStampConsole();
+
+    const { Match, Plate } = req.models
+    const myUser = req.user
+
+    const data = _.pick(req.body, ['plate_part1'])
     // console.log(data)
 
     // * Check matching plate
