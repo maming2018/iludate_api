@@ -230,7 +230,11 @@ router.post('/search_normal', validator.plate, async (req, res, next) => {
     let matchedPlate = await Plate.query().where(
         raw("REPLACE(`value`, '-', '')"), req.body.plate
     )
-        .where('inactive', null)
+        // .where('inactive', null)
+        .where(
+            query => query.where('inactive', 'IS', null)
+                .orWhere('inactive', 0)
+        )
         .eager('user').orderBy('id', 'desc') // country: req.user.country
 
     // console.log(chalk.blue("matchedPlate"))
@@ -276,6 +280,7 @@ router.post('/search_normal', validator.plate, async (req, res, next) => {
 
 router.post('/search_extra', async (req, res, next) => {
 
+    console.log("search extra")
     getTimeStampConsole();
 
     const { Match, Plate } = req.models
@@ -284,9 +289,13 @@ router.post('/search_extra', async (req, res, next) => {
     // * Check matching plate
     let matchedPlate = await Plate.query().where(
         // raw("REPLACE(`value`, '-', '')"), req.body.plate_part1
-        raw("REPLACE(`value`, '-', '')"), 'like', req.body.plate_part1 + "%"
+        raw("LEFT(REPLACE(`value`, '-', ''), 3)"), 'like', "%" + req.body.plate_part1 + "%"
     )
-        .where('inactive', null)
+        // .where('inactive', null)
+        .where(
+            query => query.where('inactive', 'IS', null)
+                .orWhere('inactive', 0)
+        )
         .eager('user').orderBy('id', 'desc') // country: req.user.country
 
     // console.log(chalk.blue("matchedPlate"))
