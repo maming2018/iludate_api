@@ -280,62 +280,50 @@ router.post('/search_normal', validator.plate, async (req, res, next) => {
 
 router.post('/search_extra', async (req, res, next) => {
 
-    console.log("search extra")
     getTimeStampConsole();
 
     const { Match, Plate } = req.models
     const myUser = req.user
 
+    const data = _.pick(req.body, ['plate_part1', 'preference'])
+
+    // console.log(data.preference)
     // * Check matching plate
     let matchedPlate = await Plate.query().where(
-        // raw("REPLACE(`value`, '-', '')"), req.body.plate_part1
-        raw("LEFT(REPLACE(`value`, '-', ''), 3)"), 'like', "%" + req.body.plate_part1 + "%"
+        raw("LEFT(REPLACE(`value`, '-', ''), 3)"), 'like', "%" + data.plate_part1 + "%"
     )
-        // .where('inactive', null)
         .where(
             query => query.where('inactive', 'IS', null)
                 .orWhere('inactive', 0)
         )
-        .eager('user').orderBy('id', 'desc') // country: req.user.country
+        .eager('user').orderBy('id', 'desc')
 
-    // console.log(chalk.blue("matchedPlate"))
-    // console.log(matchedPlate)
     let outputResponse = [];
     if (matchedPlate) {
         matchedPlate.forEach(element => {
-            // console.log("element");
-            // console.log(element.id);
-            // console.log(myUser.id);
 
-            let matchingData = Match.query().select('status')
-                .where('plateId', element.id)
-                .where(
-                    query => query.where('matcherId', myUser.id)
-                        .orWhere('matchedId', myUser.id)
-                ).first().orderBy('id', 'desc')
-            // .where(
-            //     query => query.where('plateId', element.id)
-            //         .where('matcherId', myUser.id)
-            //         .orWhere('matchedId', myUser.id)
-            // ).first().orderBy('id', 'desc')
+            // var prefrence = JSON.parse(myUser.preference);
+            // if (matchesPreference(element.user, prefrence)) {
+            if (element.user && matchesPreference(element.user, data.preference)) {
 
-            // console.log("===================")
-            // console.log(matchingData.status)
-            // console.log(matchingData)
-            // console.log("===================")
+                let matchingData = Match.query().select('status')
+                    .where('plateId', element.id)
+                    .where(
+                        query => query.where('matcherId', myUser.id)
+                            .orWhere('matchedId', myUser.id)
+                    ).first().orderBy('id', 'desc')
 
-            if (matchingData && element.user && ((matchingData.matcherId == element.user.id) || (matchingData.matchedId == element.user.id))) {
-                element.status = matchingData.status;
-            } else {
-                element.status = "-1";
+                if (matchingData && element.user && ((matchingData.matcherId == element.user.id) || (matchingData.matchedId == element.user.id))) {
+                    element.status = matchingData.status;
+                } else {
+                    element.status = "-1";
+                }
+
+                outputResponse.push(element);
             }
-
-            outputResponse.push(element);
         });
     }
 
-    // console.log(chalk.blue("outputResponse"))
-    // console.log(outputResponse)
     res.json(outputResponse)
 })
 
