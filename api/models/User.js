@@ -23,7 +23,7 @@ class User extends BaseModel {
 	static get visible() {
 
 		// return ['id', 'name', 'photo', 'gender', 'age', 'carBrand', 'carColor', 'other_photos']
-		return ['id', 'type', 'facebookId', 'googleId', 'email', 'name', 'firstName', 'lastName', 'photo', 'photoUpdate', 'gender', 'birthday', 'age', 'limited', 'phone', 'imei_registration', 'last_imei', 'coins', 'preference', 'car_brand_id', 'car_color_id', 'res_current_city', 'res_current_country_id', 'res_from_city', 'res_from_country_id', 'hobbies', 'job', 'location', 'hidden', 'banned', 'admin', 'tester', 'notes', 'registration_ip_address', 'last_ip_address', 'plate', 'verified', 'invite', 'carBrand', 'carColor', 'active', 'created', 'updated', 'standard_privacy', 'instant_privacy', 'data_request_privacy', 'car_brand_id', 'car_color_id', 'res_current_city', 'res_current_country_id', 'res_from_city', 'res_from_country_id', 'hobbies', 'job', 'other_photos']
+		return ['id', 'type', 'facebookId', 'googleId', 'email', 'name', 'firstName', 'lastName', 'photo', 'photoUpdate', 'gender', 'birthday', 'age', 'limited', 'phone', 'imei_registration', 'last_imei', 'coins', 'preference', 'car_brand_id', 'car_color_id', 'res_current_city', 'res_current_country_id', 'res_from_city', 'res_from_country_id', 'hobbies', 'job', 'location', 'hidden', 'banned', 'admin', 'tester', 'notes', 'registration_ip_address', 'last_ip_address', 'plate', 'verified', 'invite', 'carBrand', 'carColor', 'active', 'created', 'updated', 'standard_privacy', 'instant_privacy', 'data_request_privacy', 'car_brand_id', 'car_color_id', 'res_current_city', 'res_current_country_id', 'res_from_city', 'res_from_country_id', 'hobbies', 'job', 'other_photos', 'introduce']
 	}
 
 	$formatDatabaseJson(json) {
@@ -214,7 +214,7 @@ class UserMe extends User {
 
 	static get visible() {
 		// return ['id', 'name', 'firstName', 'lastName', 'photo', 'gender', 'birthday', 'age', 'limited', 'last_imei', 'coins', 'preference', 'car_brand_id', 'car_color_id', 'res_current_city', 'res_current_country_id', 'res_from_city', 'res_from_country_id', 'hobbies', 'job', 'last_ip_address', 'plate', 'verified', 'invite', 'carBrand', 'carColor', 'other_photos']
-		return ['id', 'type', 'facebookId', 'googleId', 'email', 'name', 'firstName', 'lastName', 'photo', 'photoUpdate', 'gender', 'birthday', 'age', 'limited', 'phone', 'imei_registration', 'last_imei', 'coins', 'preference', 'location', 'hidden', 'banned', 'admin', 'tester', 'notes', 'registration_ip_address', 'last_ip_address', 'plate', 'verified', 'invite', 'carBrand', 'carColor', 'active', 'created', 'updated', 'standard_privacy', 'instant_privacy', 'data_request_privacy', 'car_brand_id', 'car_color_id', 'res_current_city', 'res_current_country_id', 'res_from_city', 'res_from_country_id', 'hobbies', 'job', 'other_photos']
+		return ['id', 'type', 'facebookId', 'googleId', 'email', 'name', 'firstName', 'lastName', 'photo', 'photoUpdate', 'gender', 'birthday', 'age', 'limited', 'phone', 'imei_registration', 'last_imei', 'coins', 'preference', 'location', 'hidden', 'banned', 'admin', 'tester', 'notes', 'registration_ip_address', 'last_ip_address', 'plate', 'verified', 'invite', 'carBrand', 'carColor', 'active', 'created', 'updated', 'standard_privacy', 'instant_privacy', 'data_request_privacy', 'car_brand_id', 'car_color_id', 'res_current_city', 'res_current_country_id', 'res_from_city', 'res_from_country_id', 'hobbies', 'job', 'other_photos', 'introduce']
 	}
 
 	static get defaultEager() {
