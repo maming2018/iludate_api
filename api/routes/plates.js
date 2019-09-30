@@ -224,11 +224,13 @@ router.post('/search_normal', validator.plate, async (req, res, next) => {
     getTimeStampConsole();
 
     const { Match, Plate } = req.models
+    const plate_number = req.body.plate.replace(/-/g, '');
+
     const myUser = req.user
 
     // * Check matching plate
     let matchedPlate = await Plate.query().where(
-        raw("REPLACE(`value`, '-', '')"), req.body.plate
+        raw("REPLACE(`value`, '-', '')"), plate_number
     )
         // .where('inactive', null)
         .where(
@@ -287,10 +289,12 @@ router.post('/search_extra', async (req, res, next) => {
 
     const data = _.pick(req.body, ['plate_part1', 'preference'])
 
+    const plate_number = data.plate_part1.replace(/-/g, '');
+
     // console.log(data.preference)
     // * Check matching plate
     let matchedPlate = await Plate.query().where(
-        raw("LEFT(REPLACE(`value`, '-', ''), 3)"), 'like', "%" + data.plate_part1 + "%"
+        raw("LEFT(REPLACE(`value`, '-', ''), 3)"), 'like', "%" + plate_number + "%"
     )
         .where(
             query => query.where('inactive', 'IS', null)
