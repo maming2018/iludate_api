@@ -418,7 +418,7 @@ router.get('/near-by-users', async (req, res, next) => {
 	// console.log(data)
 	const max_distance = await Settings.query().findById(2);
 
-	const distanceInMilesSql = `( 3959 * acos( cos( radians(${data.latitude}) ) 
+	const distanceInMilesSql = `( 6371 * acos( cos( radians(${data.latitude}) ) 
           * cos( radians( location_latitude ) ) 
           * cos( radians( location_longitude ) - radians(${data.longitude}) ) 
           + sin( radians(${data.latitude}) ) 
