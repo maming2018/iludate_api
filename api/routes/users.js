@@ -78,7 +78,7 @@ router.patch('/me', async (req, res, next) => {
 
 	const { Invite } = req.models
 
-	const data = _.pick(req.body, ['firstName', 'lastName', 'gender', 'birthday', 'preference', 'car_brand_id', 'car_color_id', 'res_current_city', 'res_current_country_id', 'res_from_city', 'res_from_country_id', 'hobbies', 'job', 'introduce'])
+	const data = _.pick(req.body, ['firstName', 'lastName', 'gender', 'birthday', 'preference', 'car_brand_id', 'car_color_id', 'res_current_city', 'res_current_country_id', 'res_from_city', 'res_from_country_id', 'hobbies', 'job', 'introduce', 'instant_visible'])
 
 	// Birthday check
 
@@ -412,10 +412,11 @@ router.patch('/me/privacy-modes', async (req, res, next) => {
 router.get('/near-by-users', async (req, res, next) => {
 	// console.log("NEAR BY USERS");
 
-	const { User } = req.models
+	const { User,Settings } = req.models
 	const data = _.pick(req.body, ['latitude', 'longitude'])
 	// console.log("data")
 	// console.log(data)
+	const max_distance = await Settings.query().findById(2);
 
 	const distanceInMilesSql = `( 3959 * acos( cos( radians(${data.latitude}) ) 
           * cos( radians( location_latitude ) ) 
@@ -424,7 +425,7 @@ router.get('/near-by-users', async (req, res, next) => {
           * sin( radians( location_latitude ) ) ) ) AS distance 
 				`;
 
-	const users = await User.query().select(['*', raw(distanceInMilesSql)]).whereNotNull('location_latitude').whereNotNull('location_longitude').having('distance', '<', 10)
+	const users = await User.query().select(['*', raw(distanceInMilesSql)]).whereNotNull('location_latitude').whereNotNull('location_longitude').having('distance', '<', max_distance.value)
 	// console.log(users);
 
 	return res.json(users)
