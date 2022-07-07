@@ -33,7 +33,7 @@
     "knex-model-wrapper": "^0.3.3",
     "lodash": "^4.17.11",
     "lodash-uuid": "0.0.3",
-    "moment": "^2.23.0",
+    "moment": "^2.29.4",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "multer-s3": "^2.9.0",
