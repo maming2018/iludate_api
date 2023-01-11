@@ -29,7 +29,7 @@
     "googleapis": "^38.0.0",
     "jimp": "^0.8.4",
     "jsonwebtoken": "^8.4.0",
-    "knex": "^0.15.2",
+    "knex": "^2.4.0",
     "knex-model-wrapper": "^0.3.3",
     "lodash": "^4.17.11",
     "lodash-uuid": "0.0.3",
